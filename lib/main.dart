@@ -1,4 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
+import 'package:alert/alert.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,8 +21,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: MyHomePage(),
+        resizeToAvoidBottomInset: false,
+        body: MyHomePage(),
       ),
     );
   }
@@ -36,20 +39,71 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'KZ';
   PhoneNumber number = PhoneNumber(isoCode: 'KZ');
+  bool checkNumber = false;
+  Color openColor;
+  String phoneNumber = '';
+
+  _launchURL() async {
+    final url = 'https://wa.me/$phoneNumber';
+    if (await canLaunch(url) && checkNumber) {
+      await launch(url);
+    } else {
+     // _showAlertDialog(context);
+      coolAlert(context);
+      print('enter valid number');
+      throw 'Could not launch $url';
+    }
+  }
+
+  coolAlert(context) => CoolAlert.show(
+    context: context,
+    type: CoolAlertType.warning,
+    animType: CoolAlertAnimType.slideInDown,
+    text: "Write correct phone number",
+    confirmBtnColor: Color(0xff075e54)
+  );
+
+  _showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK", style: TextStyle(
+        color: Color(0xff075e54)
+      ),),
+      onPressed: () {Navigator.pop(context);},
+    );
+
+
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      content: Text("⚠ Write correct phone number",
+        style: TextStyle(
+        fontSize: 18
+      ),),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool checkNumber = false;
-    Color openColor = Colors.black;
-    PhoneNumber phoneNumber = PhoneNumber();
-
-    _launchURL() async {
-      const url = 'https://wa.me/+77772051717';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
+    Color _giveColor() {
+      setState(() {
+        openColor = checkNumber ? Color(0xff25D366) : Colors.black;
+      });
+      return openColor;
     }
 
     return Container(
@@ -79,7 +133,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 44,),
+                SizedBox(
+                  height: 44,
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.83,
                   child: Form(
@@ -91,74 +147,77 @@ class _MyHomePageState extends State<MyHomePage> {
                           InternationalPhoneNumberInput(
                             onInputChanged: (PhoneNumber number) {
                               print(number.phoneNumber);
-                              phoneNumber = number;
+                              phoneNumber = number.toString();
                               print(phoneNumber);
                             },
                             onInputValidated: (bool value) {
+                              setState(() {
                                 checkNumber = value;
+                              });
                               print(value);
                             },
                             selectorConfig: SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                            ),
+                                selectorType:
+                                    PhoneInputSelectorType.BOTTOM_SHEET,
+                                leadingPadding: 7,
+                                trailingSpace: false),
                             cursorColor: Color(0xff128c7e),
                             ignoreBlank: false,
                             inputDecoration: InputDecoration(
-                              hintText: 'Write phone number',
-                              border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
-                                ),
-                                  borderSide: BorderSide(
-                                      color: Color(0xff075e54)
-                                  )
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xff128c7e)
-                                )
-                              )
-                            ),
-                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                                hintText: 'Write phone number',
+                                border: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(
+                                      const Radius.circular(10.0),
+                                    ),
+                                    borderSide:
+                                        BorderSide(color: Color(0xff075e54))),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff128c7e)))),
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
                             selectorTextStyle: TextStyle(color: Colors.black),
                             initialValue: number,
-
                             textFieldController: controller,
                             formatInput: false,
                             keyboardType: TextInputType.numberWithOptions(
                                 signed: true, decimal: true),
                             inputBorder: OutlineInputBorder(),
                             onSaved: (PhoneNumber number) {
-                              print('On Saved: $number');
+                              setState(() {
+                                phoneNumber = number.toString();
+                              });
+                              print('On Saved: $phoneNumber');
                             },
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              formKey.currentState.validate();
-                            },
-                            child: Text('Validate'),
+                          SizedBox(
+                            height: 17,
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              getPhoneNumber('+15417543010');
-                            },
-                            child: Text('Update'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () async{
-                              formKey.currentState.save();
-                              _launchURL();
-                            },
-                            child: Text('Save'),
-                            style: ElevatedButton.styleFrom(
-                              primary: checkNumber ? Color(0xff25D366) : openColor,
+                          ConstrainedBox(
+                            constraints:
+                                BoxConstraints.tightFor(width: 193, height: 50),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                formKey.currentState.save();
+                                _launchURL();
+                                print(checkNumber);
+                              },
+                              child: Text('Save'),
+                              style: ElevatedButton.styleFrom(
+                                primary: _giveColor(),
+                                shape: const StadiumBorder(),
+                              ),
                             ),
                           ),
+                          SizedBox(
+                            height: 17,
+                          ),
                           Text(
-                            'Write a number in +X-XXX-XXX-XX-XX format \n'
-                                '⚠ If you want to text to yourself enter your WhatsApp number',
+                            'Write a number in +X-XXX-XX-XX format \n'
+                            '⚠ If you want to text to yourself enter your WhatsApp number',
                             textAlign: TextAlign.center,
-                          )
+                            style: TextStyle(color: Color(0xff666666)),
+                          ),
                         ],
                       ),
                     ),
@@ -175,7 +234,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
         await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
     setState(() {
       this.number = number;
     });
