@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:alert/alert.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
 
 void main() => runApp(MyApp());
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     var darkTheme = ThemeData.light().copyWith(primaryColor: Colors.blue);
 
     return MaterialApp(
-      title: 'Demo',
+      title: 'Open WhatsAppChat',
       themeMode: ThemeMode.dark,
       darkTheme: darkTheme,
       theme: ThemeData(
@@ -37,8 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final TextEditingController controller = TextEditingController();
-  String initialCountry = 'KZ';
-  PhoneNumber number = PhoneNumber(isoCode: 'KZ');
+  String initialCountry = Platform.localeName.substring(Platform.localeName.length - 2);
+  PhoneNumber number = PhoneNumber(isoCode: Platform.localeName.substring(Platform.localeName.length - 2));
   bool checkNumber = false;
   Color openColor;
   String phoneNumber = '';
@@ -62,40 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
     text: "Write correct phone number",
     confirmBtnColor: Color(0xff075e54)
   );
-
-  _showAlertDialog(BuildContext context) {
-
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK", style: TextStyle(
-        color: Color(0xff075e54)
-      ),),
-      onPressed: () {Navigator.pop(context);},
-    );
-
-
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      content: Text("⚠ Write correct phone number",
-        style: TextStyle(
-        fontSize: 18
-      ),),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 _launchURL();
                                 print(checkNumber);
                               },
-                              child: Text('Save'),
+                              child: Text('Open chat in WhatsApp'),
                               style: ElevatedButton.styleFrom(
                                 primary: _giveColor(),
                                 shape: const StadiumBorder(),
@@ -231,12 +198,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-    setState(() {
-      this.number = number;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -244,4 +209,5 @@ class _MyHomePageState extends State<MyHomePage> {
     controller?.dispose();
     super.dispose();
   }
+
 }
