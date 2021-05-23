@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return SplashScreen(
       useLoader: false,
-      seconds: 10,
+      seconds: 2,
       navigateAfterSeconds: HomeScreen(),
       title: Text(
         'Open WhatsApp chat \n without saving number',
@@ -31,8 +31,9 @@ class _MyAppState extends State<MyApp> {
       photoSize: 40,
       gradientBackground: LinearGradient(
         begin: Alignment.topLeft,
-        end: Alignment.topRight,
+        end:  Alignment(1.25, 0.0),
         colors: [kWhatsAppColorDark, kWhatsAppColorMid],
+          tileMode: TileMode.repeated
       ),
     );
   }

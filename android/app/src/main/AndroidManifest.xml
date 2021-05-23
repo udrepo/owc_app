@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.open_wa_chat">
    <application
-        android:label="open_wa_chat"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Open WA chat"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
