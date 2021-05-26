@@ -1,11 +1,11 @@
 {
-    "name": "open_wa_chat",
-    "short_name": "open_wa_chat",
+    "name": "Open WhatsApp Chat",
+    "short_name": "Open Wa chat",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "open directly Whatsapp chats",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
