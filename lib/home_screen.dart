@@ -1,4 +1,5 @@
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_wa_chat/consts.dart';
@@ -14,9 +15,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
   String initialCountry =
-  Platform.localeName.substring(Platform.localeName.length - 2);
+  !kIsWeb ? Platform.localeName.substring(Platform.localeName.length - 2) : 'KZ';
   PhoneNumber number = PhoneNumber(
-      isoCode: Platform.localeName.substring(Platform.localeName.length - 2));
+      isoCode: !kIsWeb ? Platform.localeName.substring(Platform.localeName.length - 2) : 'KZ');
   bool checkNumber = false;
   Color openColor;
   String phoneNumber = '';
