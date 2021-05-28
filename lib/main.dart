@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
-      image: Image(image: AssetImage('assets/playstore.png')),
+      image: Image(image: AssetImage('assets/icon.png')),
       photoSize: 40,
       gradientBackground: LinearGradient(
         begin: Alignment.topLeft,
