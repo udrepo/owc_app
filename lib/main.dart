@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       image: Image(image: AssetImage('assets/icon.png')),
-      photoSize: 40,
+      photoSize: 70,
       gradientBackground: LinearGradient(
         begin: Alignment.topLeft,
         end:  Alignment(1.25, 0.0),
