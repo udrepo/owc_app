@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_wa_chat/consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' show Platform;
 
@@ -32,6 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
       print('enter valid number');
       throw 'Could not launch $url';
     }
+  }
+
+  _saveInitialCountry(number, ) async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString('number', number);
   }
 
   coolAlert(context) => CoolAlert.show(

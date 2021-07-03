@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       seconds: 2,
       navigateAfterSeconds: HomeScreen(),
       title: Text(
-        'Open WhatsApp chat \n without saving number',
+        'Open chat \n without saving number',
         textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
