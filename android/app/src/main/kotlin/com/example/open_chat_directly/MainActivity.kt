@@ -1,4 +1,4 @@
-package com.example.open_wa_chat
+package com.udev.open_chat_directly
 
 import io.flutter.embedding.android.FlutterActivity
 

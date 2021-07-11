@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.open_chat">
+    package="com.udev.open_chat_directly">
    <application
         android:label="Open chat directly"
         android:icon="@mipmap/launcher_icon">
