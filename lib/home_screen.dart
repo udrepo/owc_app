@@ -28,17 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (await canLaunch(url) && checkNumber) {
       await launch(url);
     } else {
-      // _showAlertDialog(context);
       coolAlert(context);
       print('enter valid number');
       throw 'Could not launch $url';
     }
   }
 
-  _saveInitialCountry(number, ) async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('number', number);
-  }
+
 
   coolAlert(context) => CoolAlert.show(
       context: context,
