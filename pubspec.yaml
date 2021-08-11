@@ -36,6 +36,7 @@ dependencies:
   rolling_switch: ^0.0.2
   animated_button_bar: ^0.0.2+1
   google_fonts: ^2.1.0
+  animated_button: ^0.2.0
 
 dev_dependencies:
   flutter_test:

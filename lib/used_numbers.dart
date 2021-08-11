@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:open_wa_chat/services.dart';
 
+import 'consts.dart';
+
 class UsedNumbers extends StatefulWidget {
 
   @override
@@ -8,7 +10,7 @@ class UsedNumbers extends StatefulWidget {
 }
 
 class _UsedNumbersState extends State<UsedNumbers> {
-  
+
   Services services = Services();
   @override
   Widget build(BuildContext context) {
@@ -16,30 +18,52 @@ class _UsedNumbersState extends State<UsedNumbers> {
       "77772051717", "77028989882", "77772051717",
       "77772051717", "77028989882", "77772051717",
     ];
-    return Container(
-      height: 300,
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: items.length,
-          itemBuilder: (context, index){
-        return ListTile(
-          title: Text(items[index]),
-          trailing: Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-            child: Row(
+    return Center(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'History',
+              style: kTitleTextStyle,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlatButton(child: Text("Open chat"), onPressed: () async{
-                  services.launchURL(items[index], true, context);
-                },),
-                FlatButton(child: Icon(Icons.delete, color: Colors.red,), onPressed: () async{
-                  services.launchURL(items[index], true, context);
-                },),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: items.length,
+                      itemBuilder: (context, index){
+                    return ListTile(
+                      title: Text(items[index]),
+                      trailing: Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(child: Text("Open chat"), onPressed: () async{
+                              services.launchURL(items[index], true, context);
+                            },),
+                            TextButton(child: Icon(Icons.delete, color: Colors.red,), onPressed: () async{
+                              services.launchURL(items[index], true, context);
+                            },),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ),
               ],
             ),
-          ),
-        );
-      }),
+          ],
+        ),
+      ),
     );
   }
 }

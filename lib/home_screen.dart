@@ -41,37 +41,24 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   color: Colors.white),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Open WhatsApp chat',
-                    style: kTitleTextStyle,
+              child: IndexedStack(
+                    index: index,
+                    children: [EnterNumber(), UsedNumbers()],
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  // IndexedStack(
-                  //   index: index,
-                  //   children: [EnterNumber(), UsedNumbers()],
-                  // ),
-                ],
               ),
-            ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.93,
+              width: MediaQuery.of(context).size.width * 0.98,
               height: (MediaQuery.of(context).size.height<770)
                   ? MediaQuery.of(context).size.height * 0.12 :
-              MediaQuery.of(context).size.height * 0.15,
+              MediaQuery.of(context).size.height * 0.1,
               child: AnimatedButtonBar(
                 radius: 10,
                 padding: const EdgeInsets.all(8),
                 backgroundColor: Colors.white,
                 foregroundColor: kWhatsAppColorLight,
-                elevation: 24,
+                elevation: 4,
                 borderColor: Colors.white,
                 borderWidth: 2,
-                innerVerticalPadding: 3,
                 children: [
                   ButtonBarEntry(
                     onTap: () => setState(() { index = 0; }),
