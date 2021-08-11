@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       title: Text(
         'Open chat \n without saving number',
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color: Colors.white),
       ),
       image: Image(image: AssetImage('assets/icon.png')),
       photoSize: 70,
