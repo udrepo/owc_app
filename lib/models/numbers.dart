@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:open_wa_chat/preferences.dart';
 
 
 class Numbers extends ChangeNotifier{
-  Set<String> _numbers = {"77772051717", "77028989882"};
-
+  Set<String> _numbers = Preferences.getNumbers()?.toSet() ?? {};
   Set<String> get numbers => _numbers;
 
-void addNumber(String newNumber){
+void addNumber(String newNumber) async{
   _numbers.add(newNumber);
+ await Preferences.setNumbers(_numbers.toList());
   notifyListeners();
 }
 
-void deleteNumber(String number){
+void deleteNumber(String number) async{
   _numbers.remove(number);
+  await Preferences.setNumbers(_numbers.toList());
   notifyListeners();
 }
 

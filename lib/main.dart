@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:open_wa_chat/consts.dart';
 import 'package:open_wa_chat/models/numbers.dart';
+import 'package:open_wa_chat/preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 import 'screens/home_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Preferences.init();
   runApp(new MaterialApp(
     home: new MyApp(),
   ));

@@ -109,6 +109,7 @@ class _EnterNumberState extends State<EnterNumber> {
                       services.launchURL(phoneNumber, checkNumber, context);
                       print(checkNumber);
                       if(checkNumber) numbers.addNumber(phoneNumber);
+                      FocusScope.of(context).unfocus();
                     },
                     child: Text(
                       'Open chat in WhatsApp',
