@@ -31,4 +31,26 @@ textStyle: TextStyle(
   color: Color(0xff333333),
 ));
 
+var kHistoryListTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.bold,
+      color: Color(0xff333333),
+    ));
+
+var kOpenChatButtonTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: kWhatsAppColorDark,
+    ));
+
+var kNTSTextStyle = GoogleFonts.poppins(
+    textStyle: TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+      color: kWhatsAppColorDark,
+    ));
+
+
 String prefCountry = Platform.localeName.substring(Platform.localeName.length - 2);

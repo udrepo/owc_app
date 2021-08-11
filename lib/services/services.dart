@@ -1,7 +1,7 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'consts.dart';
+import '../consts.dart';
 
 class Services{
 

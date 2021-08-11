@@ -1,23 +1,20 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
-import 'package:cool_alert/cool_alert.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_wa_chat/consts.dart';
-import 'package:rolling_switch/rolling_switch.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'services.dart';
-import 'dart:io' show Platform;
-import 'enter_number.dart';
-import 'used_numbers.dart';
+import 'package:open_wa_chat/models/numbers.dart';
+import 'package:provider/provider.dart';
+import '../widgets/enter_number.dart';
+import '../widgets/used_numbers.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState(0);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
+
+  _HomeScreenState(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   color: Colors.white),
-              child: IndexedStack(
+              child: ChangeNotifierProvider(
+                create: (context) => Numbers(),
+                child: IndexedStack(
                     index: index,
                     children: [EnterNumber(), UsedNumbers()],
                   ),
+              )
               ),
             Container(
               width: MediaQuery.of(context).size.width * 0.98,
