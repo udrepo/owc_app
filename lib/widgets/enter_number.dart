@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:open_wa_chat/services/services.dart';
 import 'package:provider/provider.dart';
-import 'dart:io' show Platform;
+
 
 import '../consts.dart';
 import '../models/numbers.dart';
