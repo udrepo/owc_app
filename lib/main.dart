@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:open_wa_chat/consts.dart';
 import 'package:open_wa_chat/models/numbers.dart';
 import 'package:open_wa_chat/preferences.dart';
@@ -11,6 +12,9 @@ import 'screens/home_screen.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.init();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(new MaterialApp(
     home: new MyApp(),
   ));
